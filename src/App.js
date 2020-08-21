@@ -1,13 +1,12 @@
 import React from 'react';
-import io from 'socket.io-client';
 import './App.css';
-
-const socket = io('http://localhost:1000');
+import socket from './Components/IoClient';
+import StartPage from './Components/StartPage';
 
 const App = () => {
   return (
     <div className="App">
-      hello!
+      <StartPage />
     </div>
   );
 }
