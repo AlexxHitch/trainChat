@@ -25,7 +25,7 @@ app.post('/rooms', (req, res) => {
     const {roomId, userName} = req.body;
     if(!rooms.has(roomId)){
         rooms.set(roomId, new Map([
-            ['users', new Map()], ['messeges', []]
+            ['users', new Map()], ['messages', []]
         ]));
     } 
     //res.json([...rooms.values()]);
@@ -37,7 +37,16 @@ io.on('connection', (socket) => {
         socket.join(data.roomId);
         rooms.get(data.roomId).get('users').set(socket.id, data.userName);
         const users = [...rooms.get(data.roomId).get('users').values()];
-        socket.to(data.roomId).emit('ROOM:SET_USERS', users);
+        socket.to(data.roomId).broadcast.emit('ROOM:SET_USERS', users);
+    })
+
+    socket.on('ROOM:NEW_MESSAGE', ({roomId, userName, text}) => {
+        const obj = {
+            userName,
+            text,
+        }
+        rooms.get(roomId).get('messages').push(obj);
+        socket.to(roomId).broadcast.emit('ROOM:NEW_MESSAGE', obj);
     })
 
     socket.on('disconnect', () => {

@@ -24,7 +24,10 @@ const App = () => {
     });
     socket.emit('ROOM:JOIN', obj);
     const {data} = await axios.get(`/rooms/${obj.roomId}`);
-    setUsers(data.users)
+    dispatch({
+      type: 'SET_DATA',
+      payload: data
+    })
   }
 
   const setUsers = (users) => {
@@ -34,13 +37,23 @@ const App = () => {
     });
   }
 
+
+
+  const addMessage = (message) => {
+    dispatch({
+      type: 'NEW_MESSAGE',
+      payload: message
+    });
+  }
+
   React.useEffect(() => {
     socket.on('ROOM:SET_USERS', setUsers);
+    socket.on('ROOM:NEW_MESSAGE', addMessage);
   },[]);
 
   return (
     <div>
-      {!state.joined ? <StartPage onLogin={onLogin} /> : <ChatPage {...state} /> }
+      {!state.joined ? <StartPage onLogin={onLogin} /> : <ChatPage {...state} onAddMessage={addMessage} /> }
     </div>
   );
 }
