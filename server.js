@@ -1,15 +1,25 @@
+//import socket from './src/Components/socket';
+
 const express = require('express');
 const app = express();
 
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
+
 app.use(express.json());
+//app.use(express.urlencoded({extended: true}));
 
 const rooms = new Map();
 
-app.get('/rooms', (req, res) => {
-    res.json(rooms);
+app.get('/rooms/:id', (req, res) => {
+    const {id:roomId} = req.params;
+    console.log(roomId);
+    const obj = rooms.has(roomId) ? {
+        users: [...rooms.get(roomId).get('users').values()],
+        messages: [...rooms.get(roomId).get('messages').values()]
+    } : {users: [], messages: []};
+    res.json(obj);
 })
 app.post('/rooms', (req, res) => {
     const {roomId, userName} = req.body;
@@ -27,9 +37,17 @@ io.on('connection', (socket) => {
         socket.join(data.roomId);
         rooms.get(data.roomId).get('users').set(socket.id, data.userName);
         const users = [...rooms.get(data.roomId).get('users').values()];
-        socket.to(data.roomId).broadcast.emit('ROOM:JOINED', users);
+        socket.to(data.roomId).emit('ROOM:SET_USERS', users);
     })
 
+    socket.on('disconnect', () => {
+        rooms.forEach((value, roomId) => {
+            if(value.get('users').delete(socket.id)) {
+                const users = [...value.get('users').values()];
+                socket.to(roomId).broadcast.emit('ROOM:SET_USERS', users);
+            }
+        })
+    })
     console.log('user connected', socket.id);
 })
 

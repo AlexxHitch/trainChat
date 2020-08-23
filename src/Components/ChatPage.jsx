@@ -3,37 +3,36 @@ import socket from './socket';
 import axios from 'axios';
 import '../chatPage.css';
 
-
-const ChatPage = (props) => {
-
+const ChatPage = ({users, messages}) => {
+console.log(users)
     return (
         <div className="chat">
             <div className="chat_users">
-                <b> Users list(): </b>
+                <b> Users list({users.length}): </b>
                 <ul>
-                    <li>User1</li>
+                    {users.map((name, index) => (<li key={name + index}>{name}</li>))}
                 </ul>
             </div>
-            <div className="chat_messeges">
-                <div className="messeges">
-                    <div className="messege">
+            <div className="chat_messages">
+                <div className="messages">
+                    <div className="message">
                         <div>
-                            Lorem ipsum dolor sit amet, consectetur
+                            <p>Lorem ipsum dolor sit amet, consectetur</p>
                         </div>
                         <div>
                             <span>>Test User</span>
                         </div>
                     </div>
-                    <div className="messege">
+                    <div className="message">
                         <div>
-                            Lorem ipsum dolor sit amet, consectetur
+                            <p>Lorem ipsum dolor sit amet, consectetur</p>
                         </div>
                         <div>
                             <span>>Test User</span>
                         </div>
                     </div>
                 </div>
-                <div className="send_messege_form">
+                <div className="send_message_form">
                     <textarea rows="3"></textarea>
                     <button>Send</button>
                 </div>
