@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import socket from './socket';
 import axios from 'axios';
 import '../startPage.css';
+import { Button } from 'react-bootstrap';
 
 
 const StartPage = (props) => {
@@ -19,7 +20,7 @@ const StartPage = (props) => {
     const onEnter = async () => {
 
         if(!roomId || !userName){
-            return alert("Некорректный ввод");
+            return alert("Incorrect data");
         }
         const obj = {
                 roomId,
@@ -32,15 +33,15 @@ const StartPage = (props) => {
     }
 
     return (
-        <div className="join">
-            <div>
+        <div className="start-page">
+            <div className="start-page__item">
                 <input type="text" placeholder="Room id" value={roomId} onChange={onChangeRoomId} />
             </div>
-            <div>
+            <div className="start-page__item">
                 <input type="text" placeholder="Username" value={userName} onChange={onChangeUserName} />
             </div>
-            <div>
-                <button disable={isLoading} onClick={onEnter}>
+            <div className="start-page__button">
+                 <button className="btn btn-secondary btn-block" variant="secondary" disable={isLoading} onClick={onEnter}>
                     {isLoading ? 'JOIN...' : 'JOIN'}
                 </button>
             </div>

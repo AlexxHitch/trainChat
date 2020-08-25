@@ -5,6 +5,7 @@ import StartPage from './Components/StartPage';
 import reducer from './reducer';
 import ChatPage from './Components/ChatPage';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const App = () => {
@@ -36,9 +37,7 @@ const App = () => {
       payload: users
     });
   }
-
-
-
+  
   const addMessage = (message) => {
     dispatch({
       type: 'NEW_MESSAGE',

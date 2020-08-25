@@ -1,4 +1,17 @@
-.join{
-    text-align: center;
-    margin: 100px auto;
+.start-page{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    width: 350px;
+    border: solid 1px rgb(175, 181, 189);
+    border-radius: 5px;
+    margin: 150px auto;
+    flex-direction: column;
+}               
+
+.start-page__item{
+    margin-bottom: 10px;
 }
+
+

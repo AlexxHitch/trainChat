@@ -1,20 +1,61 @@
 
 
 .chat{
-    margin: 80px 700px;
+    margin: 100px auto 50px;
+    border: solid 1px rgb(201, 192, 204);
+    border-radius: 5px;
+    background-color: rgb(232, 241, 243);
 }
 
-.chat_users{
-    float: left;
-    padding-right: 30px;
-    height: 150px;
+.chat__users{ 
+    margin: 15px;
+    padding: 10px;
+    border: solid 1px rgb(172, 166, 166);
+    background-color: rgb(222, 228, 235);
+    border-radius: 5px;
+    text-align: center;
 }
 
-.chat_messages{
-    margin-top: 30px;
+.chat__messages{
+    margin: 15px;
+    padding: 10px;
+    height: 660px;
+    text-align: center;
 }
 
-.send_message_form{
-    margin-top: 30px;
-    margin-left: 120px;
+.messages{
+    margin-bottom: 10px;
+    padding-top: 15px;
+    height: 468px;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.send-message-form{
+    
+    width: 858px;
+}
+
+.form-control{
+    margin-bottom: 5px;
+    resize: none;
+}
+
+.button{
+    width: 80px;
+}
+
+.welcome{
+    text-align: center;
+
+}
+
+.mess{
+    width: 400px;
+}
+
+.userName{
+    width: 200px;
 }
